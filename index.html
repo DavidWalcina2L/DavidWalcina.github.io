@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <title>Moviment</title>
+    <meta charset="UTF-8">
+   
+    <style>
+        canvas {
+            border: 4px solid skyblue;
+            background-color: #A0A0A0;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 20px;
+            border-radius: 20px 0 20px 0;
+        }
+    </style>
+    <script>
+        var canvas, context;
+        var x = 200, y = 120; 
+        var intervalId; 
+
+        function startGame() {
+            canvas = document.createElement("canvas");
+            canvas.width = 480;
+            canvas.height = 270;
+            context = canvas.getContext('2d');
+            document.body.insertBefore(canvas, document.body.childNodes[0]);
+            setInterval(updateGameArea, 20); 
+        }
+
+        function updateGameArea() {
+            context.clearRect(0, 0, canvas.width, canvas.height); 
+            context.fillStyle = "red"; 
+            context.fillRect(x, y, 40, 40); 
+        }
+
+        function moveUp() {
+            y -= 2; 
+        }
+
+        function moveDown() {
+            y += 2; 
+        }
+
+        function moveLeft() {
+            x -= 2; 
+        }
+
+        function moveRight() {
+            x += 2; 
+        }
+
+        function startMoving(direction) {
+            if (intervalId) clearInterval(intervalId);
+            intervalId = setInterval(direction, 20); 
+        }
+
+        function stopMoving() {
+            clearInterval(intervalId);
+        }
+    </script>
+</head>
+<body onload="startGame();">
+<br>
+    <button onmousedown="startMoving(moveUp)" onmouseup="stopMoving()"  onclick="moveUp()">↑</button>
+    <button onmousedown="startMoving(moveLeft)" onmouseup="stopMoving()"    onclick="moveLeft()">←</button>
+    <button onmousedown="startMoving(moveRight)" onmouseup="stopMoving()" onclick="moveRight()">→</button>
+    <button onmousedown="startMoving(moveDown)" onmouseup="stopMoving()"onclick="moveDown()">↓</button>
+
+</body>
+</html>
